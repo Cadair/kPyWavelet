@@ -34,7 +34,7 @@ REFERENCES
         geophysical time series. Nonlinear Processes in Geophysics, 
         2004, 11, 561-566.
 
-"""
+c"""
 
 __version__ = '$Revision: 1 $'
 # $Source$
@@ -46,7 +46,8 @@ try:
     reload(wavelet.wav)
     reload(wavelet.plot)
 except:
-    import wavelet
+    import wav as wavelet
+    import plot as plot
 
 # Important parameters
 data1 = dict(
@@ -143,27 +144,27 @@ wct = wavelet.wct(t1, s1, t2, s2, significance_level=0.8646, normalize=True)
 # Do the plotting!
 pylab.close('all')
 
-fig = wavelet.plot.figure(ap=dict(left=0.07, bottom=0.06, right=0.95, 
+fig = plot.figure(ap=dict(left=0.07, bottom=0.06, right=0.95, 
     top=0.95, wspace=0.05, hspace=0.10))
 ax = fig.add_subplot(2, 1, 1)
-fig, ax = wavelet.plot.cwt(t1, s1, cwt1, sig1, fig=fig, ax=ax, extend='both')
+fig, ax = plot.cwt(t1, s1, cwt1, sig1, fig=fig, ax=ax, extend='both')
 bx = fig.add_subplot(2, 1, 2, sharex=ax)
-fig, bx = wavelet.plot.cwt(t2, s2, cwt2, sig2, fig=fig, ax=bx, extend='both')
+fig, bx = plot.cwt(t2, s2, cwt2, sig2, fig=fig, ax=bx, extend='both')
 ax.set_xlim = ([t2.min(), t1.max()])
 if save:
     fig.savefig('sample_ao-bmi_cwt.png')
 
-fig = wavelet.plot.figure(fp=dict())
+fig = plot.figure(fp=dict())
 ax = fig.add_subplot(1, 1, 1)
-fig, ax = wavelet.plot.xwt(*xwt, fig=fig, ax=ax, extend='both')
+fig, ax = plot.xwt(*xwt, fig=fig, ax=ax, extend='both')
 ax.set_xlim = ([xwt[1].min(), xwt[1].max()])
 if save:
     fig.savefig('sample_ao-bmi_xwt.png')
     
 
-fig = wavelet.plot.figure(fp=dict())
+fig = plot.figure(fp=dict())
 ax = fig.add_subplot(1, 1, 1)
-fig, ax = wavelet.plot.xwt(*wct, fig=fig, ax=ax, extend='neither',
+fig, ax = plot.xwt(*wct, fig=fig, ax=ax, extend='neither',
     crange=numpy.arange(0, 1.1, 0.1), scale='linear', angle=wct[5])
 ax.set_xlim = ([wct[1].min(), wct[1].max()])
 if save:
